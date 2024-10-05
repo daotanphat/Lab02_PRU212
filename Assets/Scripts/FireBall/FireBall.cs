@@ -6,6 +6,7 @@ public class FireBall : MonoBehaviour
 {
 	[SerializeField] float speed;
 	[SerializeField] float lifeTime;
+	[SerializeField] PlayerAttack playerAttack;
 	float direction;
 	float timer;
 	bool hit;
@@ -35,6 +36,9 @@ public class FireBall : MonoBehaviour
 		boxCollider.enabled = false;
 		animator.SetTrigger("explode");
 		collision.gameObject.SetActive(false);
+
+		int enemyScore = collision.gameObject.GetComponent<EnemyMovement>().enemyScore;
+		playerAttack.AddScore(enemyScore);
 	}
 
 	public void setDirection(float _direction)

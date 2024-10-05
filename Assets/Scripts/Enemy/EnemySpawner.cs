@@ -1,29 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-	[SerializeField] float spawnMinY;
-	[SerializeField] float spawnMaxY;
+	[SerializeField] float spawnMinYPercentage;
+	[SerializeField] float spawnMaxYPercentage;
 	[SerializeField] float spawnTime;
 	[SerializeField] List<GameObject> enemies;
+	[SerializeField] List<float> ratios;
 	[SerializeField] int poolSize;
 	List<GameObject> enemyPool;
 	float timer;
-	float numEnemies;
+	float positionX;
+	float spawnMinY, spawnMaxY;
 	// Start is called before the first frame update
 	void Start()
 	{
 		timer = 0;
-		numEnemies = enemies.Count;
+		positionX = transform.position.x;
 		enemyPool = new List<GameObject>();
-		for (int i = 0; i < poolSize; i++)
+		float worldHeight = Camera.main.orthographicSize * 2;
+		Debug.Log(worldHeight);
+		spawnMinY = (spawnMinYPercentage / 100f) / worldHeight;
+		spawnMaxY = (spawnMaxYPercentage / 100f) / worldHeight;
+		int ratio1 = (int)(ratios[0] * poolSize);
+		for (int i = 0; i < ratio1; i++)
 		{
-			GameObject newEnemy = Instantiate(enemies[(int)Random.Range(0, numEnemies)]);
+			GameObject newEnemy = Instantiate(enemies[0]);
 			newEnemy.SetActive(false);
 			enemyPool.Add(newEnemy);
 		}
+		for (int i = ratio1; i < poolSize; i++)
+		{
+			GameObject newEnemy = Instantiate(enemies[1]);
+			newEnemy.SetActive(false);
+			enemyPool.Add(newEnemy);
+		}
+		enemyPool = ShuffleList(enemyPool);
+	}
+
+	List<GameObject> ShuffleList(List<GameObject> list)
+	{
+		var random = new System.Random();
+		return list.OrderBy(item => random.Next()).ToList();
 	}
 
 	// Update is called once per frame
@@ -36,7 +57,7 @@ public class EnemySpawner : MonoBehaviour
 			if (newEnemy != null)
 			{
 				newEnemy.SetActive(true);
-				newEnemy.transform.position = new Vector3(transform.position.x, Random.Range(spawnMinY, spawnMaxY), transform.position.z);
+				newEnemy.transform.position = new Vector3(positionX, Random.Range(spawnMinY, spawnMaxY), transform.position.z);
 				timer = 0;
 			}
 		}

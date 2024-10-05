@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8023370247616211163}
   - component: {fileID: 5207777924272078263}
   - component: {fileID: 3984673859147619585}
+  - component: {fileID: 2653002243545026912}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -196,3 +197,17 @@ MonoBehaviour:
   minSpeed: 4
   maxSpeed: 5
   lifeTime: 12
+  score: 2
+--- !u!114 &2653002243545026912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7354559248129415492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13f4c02586c42b419bd2a4d9dbd59c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 15

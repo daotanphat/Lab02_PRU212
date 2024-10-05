@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
 	Animator animator;
 	PlayerMovement playerMovement;
 	float cooldownTimer = Mathf.Infinity;
+	public int playerScore { get; private set; }
 
 	// Start is called before the first frame update
 	void Start()
@@ -47,5 +48,10 @@ public class PlayerAttack : MonoBehaviour
 			}
 		}
 		return 0;
+	}
+
+	public void AddScore(int score)
+	{
+		playerScore += score;
 	}
 }

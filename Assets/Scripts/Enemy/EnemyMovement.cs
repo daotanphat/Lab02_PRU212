@@ -7,7 +7,9 @@ public class EnemyMovement : MonoBehaviour
 	[SerializeField] private float minSpeed;
 	[SerializeField] private float maxSpeed;
 	[SerializeField] private float lifeTime;
+	[SerializeField] private int score;
 	float width, speed, time;
+	public int enemyScore { get; private set; }
 
 	// Start is called before the first frame update
 	void Start()
@@ -16,6 +18,7 @@ public class EnemyMovement : MonoBehaviour
 		width = Camera.main.orthographicSize * Camera.main.aspect - gOWidth;
 		speed = Random.Range(minSpeed, maxSpeed);
 		time = 0;
+		enemyScore = score;
 	}
 
 	// Update is called once per frame
