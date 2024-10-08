@@ -13,19 +13,24 @@ public class EnemySpawner : MonoBehaviour
 	[SerializeField] int poolSize;
 	List<GameObject> enemyPool;
 	float timer;
-	float positionX;
+	float spawnX;
 	float spawnMinY, spawnMaxY;
 	// Start is called before the first frame update
 	void Start()
 	{
 		timer = 0;
-		positionX = transform.position.x;
 		enemyPool = new List<GameObject>();
+
+		// calculate spawn height based on camera height
 		float worldHeight = Camera.main.orthographicSize * 2;
-		Debug.Log(worldHeight);
 		spawnMinY = (spawnMinYPercentage / 100f) / worldHeight;
 		spawnMaxY = (spawnMaxYPercentage / 100f) / worldHeight;
-		int ratio1 = (int)(ratios[0] * poolSize);
+
+		// calculate width camera
+		float cameraWidth = Camera.main.orthographicSize * 2 * Camera.main.aspect;
+		spawnX = cameraWidth / 2;
+
+		int ratio1 = (int)(ratios[0] * poolSize); // ratio appear of first enemy
 		for (int i = 0; i < ratio1; i++)
 		{
 			GameObject newEnemy = Instantiate(enemies[0]);
@@ -38,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
 			newEnemy.SetActive(false);
 			enemyPool.Add(newEnemy);
 		}
-		enemyPool = ShuffleList(enemyPool);
+		enemyPool = ShuffleList(enemyPool); // shuffle list
 	}
 
 	List<GameObject> ShuffleList(List<GameObject> list)
@@ -57,7 +62,7 @@ public class EnemySpawner : MonoBehaviour
 			if (newEnemy != null)
 			{
 				newEnemy.SetActive(true);
-				newEnemy.transform.position = new Vector3(positionX, Random.Range(spawnMinY, spawnMaxY), transform.position.z);
+				newEnemy.transform.position = new Vector3(spawnX, Random.Range(spawnMinY, spawnMaxY), transform.position.z);
 				timer = 0;
 			}
 		}

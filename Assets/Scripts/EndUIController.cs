@@ -19,6 +19,13 @@ public class EndUIController : MonoBehaviour
 
 	public void RestartOnClick()
 	{
-		SceneManager.LoadScene("SampleScene");
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		Time.timeScale = 1;
+	}
+
+	public void HomeBackOnClick()
+	{
+		SceneManager.LoadScene("MenuScene");
+		Time.timeScale = 1;
 	}
 }

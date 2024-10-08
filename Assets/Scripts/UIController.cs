@@ -66,4 +66,10 @@ public class UIController : MonoBehaviour
 		txtPausedButton.text = "Pause";
 		Time.timeScale = 1;
 	}
+
+	public void RestartOnClick()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		Time.timeScale = 1;
+	}
 }
