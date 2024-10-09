@@ -23,8 +23,9 @@ public class EnemySpawner : MonoBehaviour
 
 		// calculate spawn height based on camera height
 		float worldHeight = Camera.main.orthographicSize * 2;
-		spawnMinY = (spawnMinYPercentage / 100f) / worldHeight;
-		spawnMaxY = (spawnMaxYPercentage / 100f) / worldHeight;
+		float halfWorldHeight = worldHeight / 2;
+		spawnMinY = ((spawnMinYPercentage / 100f) * worldHeight) - halfWorldHeight;
+		spawnMaxY = ((spawnMaxYPercentage / 100f) * worldHeight) - halfWorldHeight;
 
 		// calculate width camera
 		float cameraWidth = Camera.main.orthographicSize * 2 * Camera.main.aspect;
@@ -43,13 +44,20 @@ public class EnemySpawner : MonoBehaviour
 			newEnemy.SetActive(false);
 			enemyPool.Add(newEnemy);
 		}
-		enemyPool = ShuffleList(enemyPool); // shuffle list
+		FisherYatesShuffle(enemyPool); // shuffle list
 	}
 
-	List<GameObject> ShuffleList(List<GameObject> list)
+	public static void FisherYatesShuffle<T>(IList<T> list)
 	{
-		var random = new System.Random();
-		return list.OrderBy(item => random.Next()).ToList();
+		int n = list.Count;
+		while (n > 1)
+		{
+			n--;
+			int k = UnityEngine.Random.Range(0, n + 1);
+			T value = list[k];
+			list[k] = list[n];
+			list[n] = value;
+		}
 	}
 
 	// Update is called once per frame

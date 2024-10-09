@@ -35,6 +35,7 @@ public class PlayerAttack : MonoBehaviour
 		cooldownTimer = 0;
 
 		fireBalls[FindFireBall()].transform.position = firePoint.position;
+		Debug.Log(FindFireBall());
 		fireBalls[FindFireBall()].GetComponent<FireBall>().setDirection(Mathf.Sign(transform.localScale.x));
 	}
 

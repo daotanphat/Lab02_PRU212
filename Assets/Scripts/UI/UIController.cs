@@ -55,9 +55,9 @@ public class UIController : MonoBehaviour
 
 	public void PauseGame()
 	{
+		Time.timeScale = 0;
 		isPaused = true;
 		txtPausedButton.text = "Resume";
-		Time.timeScale = 0;
 	}
 
 	public void ResumeGame()
