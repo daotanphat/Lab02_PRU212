@@ -78,13 +78,27 @@ public class EnemySpawner : MonoBehaviour
 
 	private GameObject GetFreeEnemy()
 	{
-		foreach (var enemy in enemyPool)
+		int startIndex = Random.Range(0, enemyPool.Count);
+
+		// Start searching from a random index
+		for (int i = startIndex; i < enemyPool.Count; i++)
 		{
-			if (enemy.activeSelf == false)
+			if (!enemyPool[i].activeSelf)
 			{
-				return enemy;
+				return enemyPool[i];
 			}
 		}
+
+		// If no enemy is found, search from the beginning up to the random index
+		for (int i = 0; i < startIndex; i++)
+		{
+			if (!enemyPool[i].activeSelf)
+			{
+				return enemyPool[i];
+			}
+		}
+
+		// If no inactive enemy is found, return null
 		return null;
 	}
 }

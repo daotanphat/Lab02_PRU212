@@ -55,4 +55,9 @@ public class PlayerAttack : MonoBehaviour
 	{
 		playerScore += score;
 	}
+
+	public void MinusScore(int score)
+	{
+		playerScore -= score;
+	}
 }

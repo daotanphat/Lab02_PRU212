@@ -5,10 +5,11 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
 	[SerializeField] float damage;
+	[SerializeField] EndUIController endUIController;
 	// Start is called before the first frame update
 	void Start()
 	{
-
+		Debug.Log(endUIController.gameObject);
 	}
 
 	// Update is called once per frame
@@ -31,6 +32,8 @@ public class EnemyAttack : MonoBehaviour
 				if (playerHealth.currentHealth <= 0)
 				{
 					collision.gameObject.SetActive(false);
+					Time.timeScale = 0;
+					endUIController.SetUp();
 				}
 			}
 		}

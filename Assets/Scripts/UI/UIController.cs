@@ -9,11 +9,13 @@ public class UIController : MonoBehaviour
 	[SerializeField] Text tbTime;
 	[SerializeField] int limitTime;
 	[SerializeField] Button pauseButon;
+	[SerializeField] Button shopButton;
 	[SerializeField] Image healthBarFill;
 	[SerializeField] PlayerHealth playerHealth;
 	[SerializeField] PlayerAttack playerAttack;
 	[SerializeField] Text tbScore;
 	[SerializeField] EndUIController endUIController;
+	[SerializeField] ShopController shopController;
 	float timer = 0;
 	bool isPaused = false;
 	Text txtPausedButton;
@@ -21,7 +23,7 @@ public class UIController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		tbTime.text = "Time: " + limitTime.ToString();
+		//tbTime.text = "Time: " + limitTime.ToString();
 		tbScore.text = "Score: 0";
 		txtPausedButton = pauseButon.GetComponentInChildren<Text>();
 		healthBarFill.fillAmount = 1;
@@ -30,21 +32,24 @@ public class UIController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		timer += Time.deltaTime;
-		if (timer >= 1)
-		{
-			limitTime -= 1;
-			tbTime.text = "Time: " + limitTime.ToString();
-			tbScore.text = "Score: " + playerAttack.playerScore;
-			timer = 0;
-			healthBarFill.fillAmount = playerHealth.currentHealth / 100f;
-		}
-		if (limitTime == 0)
-		{
-			Time.timeScale = 0;
-			gameObject.SetActive(false);
-			endUIController.SetUp();
-		}
+		//timer += Time.deltaTime;
+		//if (timer >= 1)
+		//{
+		//	limitTime -= 1;
+		//	tbTime.text = "Time: " + limitTime.ToString();
+			
+		//	timer = 0;
+		//	healthBarFill.fillAmount = playerHealth.currentHealth / 100f;
+		//}
+		tbScore.text = "Score: " + playerAttack.playerScore;
+		healthBarFill.fillAmount = playerHealth.currentHealth / 100f;
+
+		//if (limitTime == 0)
+		//{
+		//	Time.timeScale = 0;
+		//	gameObject.SetActive(false);
+		//	endUIController.SetUp();
+		//}
 	}
 
 	public void PauseButtonClick()
@@ -71,5 +76,20 @@ public class UIController : MonoBehaviour
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		Time.timeScale = 1;
+	}
+
+	public void ShopOnClick()
+	{
+		shopController.SetUp();
+	}
+
+	public void deactive()
+	{
+		this.gameObject.SetActive(false);
+	}
+
+	public void active()
+	{
+		this.gameObject.SetActive(true);
 	}
 }
